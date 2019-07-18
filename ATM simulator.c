@@ -2,15 +2,20 @@
 #include<stdio.h>
 #include<string.h>
 
-char ac1[] = "1100", ac2[] = "1111";		//ÕË»§1ºÍÕË»§2µÄÕËºÅ
-char psw1[] = "123456", psw2[] = "654321";	//ÕË»§1ºÍÕË»§2µÄÃÜÂë
-double balance1 = 10000.0, balance2 = 20000.0;	//ÕË»§1ºÍÕË»§2µÄÓà¶î
-double withdrawn = 0.0;						//ÀÛ¼ÆÈ¡¿î¶î
-int a1 = 0, a2 = 0;							//ÕË»§1ºÍ2ÀÛ¼ÆÃÜÂëÊäÈë´íÎóµÄ´ÎÊı
-int ac = 0;									//ÕË»§Ñ¡Ôñ±äÁ¿£¬ÓÃÓÚ¼ÇÂ¼±¾´ÎÊ¹ÓÃµÄÊÇÄÄÒ»¸öÕË»§
+char ac1[] = "1100", ac2[] = "1111";		//è´¦æˆ·1å’Œè´¦æˆ·2çš„è´¦å·
+char psw1[] = "123456", psw2[] = "654321";	//è´¦æˆ·1å’Œè´¦æˆ·2çš„å¯†ç 
+double balance1 = 10000.0, balance2 = 20000.0;	//è´¦æˆ·1å’Œè´¦æˆ·2çš„ä½™é¢
+double withdrawn = 0.0;						//ç´¯è®¡å–æ¬¾é¢
+int a1 = 0, a2 = 0;							//è´¦æˆ·1å’Œ2ç´¯è®¡å¯†ç è¾“å…¥é”™è¯¯çš„æ¬¡æ•°
+int ac = 0;									//è´¦æˆ·é€‰æ‹©å˜é‡ï¼Œç”¨äºè®°å½•æœ¬æ¬¡ä½¿ç”¨çš„æ˜¯å“ªä¸€ä¸ªè´¦æˆ·
 
 void deposit(int ac) {
-
+    double num;
+    if (!(ac==1||ac==2)) return;
+    printf("è¯·è¾“å…¥å­˜æ¬¾é‡‘é¢ï¼š");
+    scanf("%lf",&num);
+    if (ac==1) balance1 += num;
+    else balance2 += num;
 }
 
 void withdraw(int ac) {
@@ -20,8 +25,8 @@ void withdraw(int ac) {
 void inqbalance(int ac) {
 	switch (ac)
 	{
-	case 1: printf("ÄúµÄÓà¶îÎª%.2lf\n", balance1); break;
-	case 2: printf("ÄúµÄÓà¶îÎª%.2lf\n", balance2); break;
+	case 1: printf("æ‚¨çš„ä½™é¢ä¸º%.2lf\n", balance1); break;
+	case 2: printf("æ‚¨çš„ä½™é¢ä¸º%.2lf\n", balance2); break;
 	default:
 		break;
 	}
@@ -33,18 +38,18 @@ void transfer(int ac) {
 
 
 void menu() {
-	printf("ÇëÑ¡Ôñ¹¦ÄÜ£º1.´æ¿î 2.È¡¿î 3.²éÑ¯Óà¶î 4.×ªÕË\n");
+	printf("è¯·é€‰æ‹©åŠŸèƒ½ï¼š1.å­˜æ¬¾ 2.å–æ¬¾ 3.æŸ¥è¯¢ä½™é¢ 4.è½¬è´¦\n");
 }
 
 int main() {
 
-	int choice = 0;							//²Ëµ¥Ñ¡Ïî±äÁ¿
-	char inputpsw[6];						//¼ÇÂ¼ÓÃ»§ÊäÈëµÄÃÜÂë
-	puts("Çë²åÈëÒøĞĞ¿¨ (1.1100 2.1111)");	//ÊäÈë1»ò2À´Ñ¡ÔñµÇÈëµÄÕË»§,²»¿¼ÂÇÊäÈë·Ç1/2µÄÇé¿ö
+	int choice = 0;							//èœå•é€‰é¡¹å˜é‡
+	char inputpsw[6];						//è®°å½•ç”¨æˆ·è¾“å…¥çš„å¯†ç 
+	puts("è¯·æ’å…¥é“¶è¡Œå¡ (1.1100 2.1111)");	//è¾“å…¥1æˆ–2æ¥é€‰æ‹©ç™»å…¥çš„è´¦æˆ·,ä¸è€ƒè™‘è¾“å…¥é1/2çš„æƒ…å†µ
 	scanf("%d", &ac);
 	for (;a1<3 && a2<3;) {
-		puts("ÇëÊäÈëÃÜÂë£º");
-			scanf("%s", inputpsw);	//²»¿¼ÂÇÎ´ÊäÈë6Î»µÄÇé¿ö
+		puts("è¯·è¾“å…¥å¯†ç ï¼š");
+			scanf("%s", inputpsw);	//ä¸è€ƒè™‘æœªè¾“å…¥6ä½çš„æƒ…å†µ
 			if (ac == 1) {
 				if (strcmp(psw1, inputpsw) == 0)break;
 				else a1++;
@@ -67,7 +72,7 @@ int main() {
 				case 4: transfer(ac); break;
 				default:break;
 			}
-			puts("ÊÇ·ñ½áÊøÊ¹ÓÃ£¿1.ÊÇ 2.·ñ");
+			puts("æ˜¯å¦ç»“æŸä½¿ç”¨ï¼Ÿ1.æ˜¯ 2.å¦");
 			scanf("%d", &choice);
 			if (choice == 1) break;
 		}
